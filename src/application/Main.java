@@ -9,11 +9,11 @@ import entities.Employee;
 
 public class Main {
 
-	static int id;
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
 		int employeeNum;
+		int id;
 		boolean loop = true;
 		List<Employee> employeeList = new ArrayList();
 		
@@ -27,8 +27,7 @@ public class Main {
 				System.out.print("Enter employee "+i+" id: ");
 				id = sc.nextInt();
 				sc.nextLine();
-				List<Employee> result = employeeList.stream().filter(x -> x.getId() == id).collect(Collectors.toList());
-				if(!(result.isEmpty())) {
+				if(!(hasId(employeeList, id))) {
 					System.out.println("Id already used!");	
 				} else {
 					loop = false;
@@ -50,8 +49,7 @@ public class Main {
 			double increase;
 			System.out.print("Enter an id to receive a salary increase: ");
 			id = sc.nextInt();
-			List<Employee> result = employeeList.stream().filter(x -> x.getId() == id).collect(Collectors.toList());
-			if(!(result.isEmpty())) {
+			if(hasId(employeeList, id)) {
 				for(int i = 1; i <= employeeList.size(); i++) {
 					if(employeeList.get(i).getId() == id) {
 						System.out.print("Enter increase percentage: ");
@@ -71,6 +69,18 @@ public class Main {
 		
 		sc.close();
 		
+		
 	}
+	
+	public static boolean hasId(List<Employee> list, int id) {
+		List<Employee> result = list.stream().filter(x -> x.getId() == id).collect(Collectors.toList());
+		if(result.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
 
 }
